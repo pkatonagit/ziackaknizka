@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>{ifset title}{include title|striptags} - {/ifset} Žiacka knižka</title>
+	<!-- Bootstrap core CSS-->
+	<link href="{$basePath}/www/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom fonts for this template-->
+	<link href="{$basePath}/www/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<!-- Page level plugin CSS-->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+	<!-- Custom styles for this template-->
+	<link href="{$basePath}/www/css/sb-admin.css" rel="stylesheet">
+
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<!-- Navigation-->
+{if !isset($disableNavigation)}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+	<a class="navbar-brand" n:href="Ziaci:list">Žiacka knižka</a>
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarResponsive">
+
+		<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+
+            {if $user->loggedIn && $user->getIdentity()->rola < 2}
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+					<a class="nav-link" n:href="Ziaci:grades">
+						<i class="fa fa-address-card-o"></i>
+						<span class="nav-link-text">Profil</span>
+					</a>
+				</li>
+            {/if}
+
+			{if $user->loggedIn && $user->getIdentity()->rola > 1}
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+				<a class="nav-link" n:href="Ziaci:list">
+					<i class="fa fa-male"></i>
+					<span class="nav-link-text">Ziaci</span>
+				</a>
+			</li>
+			{/if}
+
+            {if $user->loggedIn && $user->getIdentity()->rola > 9}
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+				<a class="nav-link" n:href="Teacher:list">
+					<i class="fa fa-graduation-cap"></i>
+					<span class="nav-link-text">Ucitelia</span>
+				</a>
+			</li>
+			{/if}
+
+            {if $user->loggedIn}
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+				<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#classesSubmenu" data-parent="#exampleAccordion">
+					<i class="fa fa-fw fa-table"></i>
+					<span class="nav-link-text">Triedy</span>
+				</a>
+				<ul class="sidenav-second-level collapse" id="classesSubmenu">
+					<li>
+						<a n:href="Class:list">Zoznam</a>
+					</li>
+					{if $user->loggedIn && $user->getIdentity()->rola > 9}
+					<li>
+						<a n:href="Class:create">Vytvorenie</a>
+					</li>
+                    {/if}
+					<li>
+						<a n:href="Stats:default">Štatistiky</a>
+					</li>
+				</ul>
+			</li>
+			{/if}
+
+            {if $user->loggedIn && $user->getIdentity()->rola > 9}
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+					<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#managementSubmenu" data-parent="#exampleAccordion">
+						<i class="fa fa-puzzle-piece"></i>
+						<span class="nav-link-text">Správa</span>
+					</a>
+					<ul class="sidenav-second-level collapse" id="managementSubmenu">
+						<li>
+							<a n:href="Admin:user">Vytvorenie použivateľa</a>
+						</li>
+					</ul>
+				</li>
+            {/if}
+            {if $user->loggedIn}
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+					<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#settingsSubmenu" data-parent="#exampleAccordion">
+						<i class="fa fa-cog"></i>
+						<span class="nav-link-text">Nastavenia</span>
+					</a>
+					<ul class="sidenav-second-level collapse" id="settingsSubmenu">
+						<li>
+							<a n:href="User:password">Zmena hesla</a>
+						</li>
+					</ul>
+				</li>
+            {/if}
+		</ul>
+
+		<ul class="navbar-nav sidenav-toggler">
+			<li class="nav-item">
+				<a class="nav-link text-center" id="sidenavToggler">
+					<i class="fa fa-fw fa-angle-left"></i>
+				</a>
+			</li>
+		</ul>
+		<ul class="navbar-nav ml-auto">
+            {if $user->loggedIn}
+			<li class="nav-item">
+
+				<a n:href="User:edit $user->getIdentity()->id" class="nav-link">
+					Prihlásený ako {$user->getIdentity()->meno} {$user->getIdentity()->priezvisko}
+				</a>
+
+			</li>
+			{/if}
+
+			<li class="nav-item">
+                {if $user->loggedIn}
+					<a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+						<i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                {else}
+					<a class="nav-link" n:href="User:login">
+						<i class="fa fa-fw fa-sign-out"></i>Login</a>
+                {/if}
+
+			</li>
+		</ul>
+	</div>
+</nav>
+
+{/if}
+
+<div class="content-wrapper" {if isset($disableNavigation)} style="margin-left: 0" {/if}>
+	<div class="container-fluid">
+		<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+
+        {include content}
+
+	</div>
+	<!-- /.container-fluid-->
+	<!-- /.content-wrapper-->
+	<footer class="sticky-footer" {if isset($disableNavigation)} style="width: 100%" {/if}>
+		<div class="container">
+			<div class="text-center">
+				<small>Peter Katona 2018</small>
+			</div>
+		</div>
+	</footer>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top">
+		<i class="fa fa-angle-up"></i>
+	</a>
+	<!-- Logout Modal-->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Odhlásenie</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Chcete sa odhlásiť?</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Zrušiť</button>
+					<a class="btn btn-primary" n:href="User:logout">Odhlásiť</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Bootstrap core JavaScript-->
+    {block scripts}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://nette.github.io/resources/js/netteForms.min.js"></script>
+		<script src="{$basePath}/www/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- Core plugin JavaScript-->
+		<script src="{$basePath}/www/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+		<!-- Custom scripts for all pages-->
+		<script src="{$basePath}/www/js/sb-admin.min.js"></script>
+		<!-- Custom scripts for this page-->
+
+		<script>
+			$(document).ready(function () {
+                $( ".select-subjects" ).select2({
+					multiple: true,
+					width: '100%'
+				});
+
+                $( ".select-teacher" ).select2({
+                   width: '100%'
+                });
+            });
+		</script>
+
+    {/block}
+</div>
+
+</body>
+</html>

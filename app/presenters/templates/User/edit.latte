@@ -1,0 +1,13 @@
+
+{block content}
+
+
+
+<h1>Editácia pouzivatela</h1>
+
+{control editUserForm}
+
+{if $user->getIdentity()->rola > 1 && $loadedUser->rola < 2}
+<h2>Editácia známok</h2>
+{control editSubjects}
+{/if}

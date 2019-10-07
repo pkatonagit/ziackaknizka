@@ -1,0 +1,30 @@
+{block content}
+
+<h1>Zoznam učiteľov</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Meno</th>
+        <th>Priezvisko</th>
+        <th>Email</th>
+        {if $user->getIdentity()->rola > 2}
+        <th>Akcia</th>
+        {/if}
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $users as $u}
+        <tr>
+            <td>{$u->id}</td>
+            <td>{$u->meno}</td>
+            <td>{$u->priezvisko}</td>
+            <td>{$u->email}</td>
+            {if $user->getIdentity()->rola > 2}
+            <td><a n:href="User:edit $u->id">Uprav</a></td>
+            {/if}
+        </tr>
+    {/foreach}
+    </tbody>
+</table>

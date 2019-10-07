@@ -1,0 +1,24 @@
+
+{block content}
+
+<h1>Detail triedy {$class->name}</h1>
+
+<h2>Ziaci</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Meno</th>
+        <th>Priezvisko</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $students as $c}
+        <tr>
+            <td>{$c->id}</td>
+            <td>{$c->meno}</td>
+            <td>{$c->priezvisko}</td>
+        </tr>
+    {/foreach}
+    </tbody>
+</table>

@@ -1,0 +1,23 @@
+{block content}
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Meno</th>
+        <th>Priezvisko</th>
+        <th>Email</th>
+        <th>Akcia</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $users as $u}
+        <tr>
+            <td>{$u->id}</td>
+            <td>{$u->meno}</td>
+            <td>{$u->priezvisko}</td>
+            <td>{$u->email}</td>
+            <td><a n:href="User:edit $u->id">Uprav</a></td>
+        </tr>
+    {/foreach}
+    </tbody>
+</table>

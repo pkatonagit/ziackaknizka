@@ -1,0 +1,31 @@
+{block content}
+
+<h1>Štatistiky</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Trieda</th>
+        <th>Počet žiakov</th>
+        <th>Priemer známok</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $classes as $c}
+        <tr>
+            <td>{$c->id}</td>
+            <td>{$c->pocetStudentov}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    {/foreach}
+    </tbody>
+</table>
+<br>5 = 1. A
+<br>6 = 1. B
+<br>7 = 1. C

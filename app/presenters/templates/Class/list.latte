@@ -1,0 +1,28 @@
+
+{block content}
+
+<h1>Zoznam tried</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nazov</th>
+        <th>Ucitel</th>
+        <th>Akcia</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $classes as $c}
+    <tr>
+        <td>{$c->id}</td>
+        <td>{$c->name}</td>
+        <td>{$c->teacher}</td>
+        <td>
+            <a n:href="Class:edit $c->id">Uprav</a>
+            <a n:href="Class:detail $c->id">Zobraz</a>
+        </td>
+    </tr>
+    {/foreach}
+    </tbody>
+</table>

@@ -1,0 +1,23 @@
+
+{block content}
+<h1>Ziak {$student->meno} {$student->priezvisko}</h1>
+
+<h2>Znamky</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nazov</th>
+        <th>Známky</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $subjects as $s}
+        <tr>
+            <td>{$s->id}</td>
+            <td>{$s->name}</td>
+            <td>{$s->znamky}</td>
+        </tr>
+    {/foreach}
+    </tbody>
+</table>
